@@ -13,6 +13,8 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  /* ✨ CORRECTION : Place la vidéo tout à fait en arrière-plan */
+  z-index: -2; 
 }
 
 /* Conteneur et vidéo - SANS FILTRE */
@@ -40,6 +42,9 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+  
+  /* ✨ CORRECTION : Place l'overlay entre la vidéo (-2) et le contenu normal (0) */
+  z-index: -1; 
   
   /* 1. Couleur de la "nuit" (UV) sur toute la surface */
   background-color: rgb(20, 0, 40); /* Un violet/indigo très sombre pour la nuit */
