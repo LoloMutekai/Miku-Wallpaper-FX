@@ -1,0 +1,78 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  /* Masque le curseur par défaut pour une meilleure immersion */
+  cursor: none; 
+}
+
+/* Positionnement de la vidéo en fond */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Conteneur et vidéo - SANS FILTRE */
+.video-content, .video-content video {
+  width: 100%;
+  height: 100%;
+}
+
+.video-content video {
+  min-width: 100%; 
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
+
+/* 🔦 Le FILTRE de NUIT/UV : Couvre l'écran d'une couleur foncée */
+.interactive-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* 1. Couleur de la "nuit" (UV) sur toute la surface */
+  background-color: rgb(20, 0, 40); /* Un violet/indigo très sombre pour la nuit */
+  
+  /* 2. Mélange cette couleur avec la vidéo */
+  mix-blend-mode: hard-light; 
+}
+
+/* ✨ Le SPOTLIGHT (La Lampe Torche Réaliste) */
+#spotlight {
+  position: absolute; /* Positionné par rapport à l'overlay parent */
+  
+  /* Ces variables seront mises à jour par JS pour l'effet élastique */
+  top: var(--spot-y, 50%);
+  left: var(--spot-x, 50%);
+  
+  /* Centre l'élément pour que les variables pointent vers le milieu */
+  transform: translate(-50%, -50%);
+
+  width: 500px; /* Taille de la zone éclairée */
+  height: 500px;
+  border-radius: 50%;
+
+  /* --- EFFET DE RÉALITÉ / CONTOUR FLOU --- */
+  /* Utilise un dégradé radial inversé pour "percer" l'overlay sombre */
+  background: radial-gradient(
+      circle closest-side,
+      rgba(255, 255, 255, 1) 0%, /* Très blanc au centre (lumière max) */
+      rgba(255, 255, 255, 0.5) 40%, /* Lumière atténuée */
+      rgba(255, 255, 255, 0) 75%, /* La lumière s'éteint (bord flou) */
+      rgba(255, 255, 255, 0) 100% /* Transparent complet */
+  );
+  
+  /* Le blend mode "lighten" permet de percer la couche sombre de l'overlay parent */
+  mix-blend-mode: lighten; 
+}
